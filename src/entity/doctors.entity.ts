@@ -7,7 +7,7 @@ import {
 } from "typeorm";
 import { Appointments } from "./appointments.entity";
 
-@Entity("doctores")
+@Entity("doctors")
 export class Doctors {
   @PrimaryGeneratedColumn("uuid")
   @Generated("uuid")

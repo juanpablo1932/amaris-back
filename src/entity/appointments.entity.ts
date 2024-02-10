@@ -11,7 +11,7 @@ import {
 import { AppointmentType } from "./appointmentType.entity";
 import { Patients } from "./patients.entity";
 import { Doctors } from "./doctors.entity";
-@Entity("citas")
+@Entity("appointments")
 export class Appointments {
   @PrimaryGeneratedColumn("uuid")
   @Generated("uuid")
