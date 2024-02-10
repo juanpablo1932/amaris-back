@@ -5,7 +5,7 @@ import cors from "cors";
 import { router } from "./routes";
 import { DataSource } from "typeorm";
 
-const AppDataSource = new DataSource({
+export const AppDataSource = new DataSource({
   type: "postgres",
   host: process.env.HOST_DB, //DB_HOST,
   port: 54320,
@@ -25,6 +25,7 @@ AppDataSource.initialize()
   .then(() => {
     const app = express();
     app.use(cors());
+    app.use(express.json());
     app.use(router);
 
     app.listen(PORT, () => {

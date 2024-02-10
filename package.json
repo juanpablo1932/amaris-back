@@ -4,7 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon ./src/app.ts"
+    "dev": "nodemon ./src/app.ts",
+    "typeorm": "ts-node ./node_modules/typeorm/cli",
+    "typeorm:migration:generate": "npm run typeorm -- -d ./src/app.ts migration:generate ./src/migrations/$npm_config_name",
+    "typeorm:migration:run": "npm run typeorm -- -d ./src/app.ts migration:run",
+    "typeorm:migration:revert": "npm run typeorm -- -d ./src/app.ts  migration:revert",
+    "typeorm:migration:create": "npm run typeorm -- -d ./src/app.ts  migration:create -n"
   },
   "repository": {
     "type": "git",
