@@ -5,19 +5,19 @@ export class $npmConfigName1707602584738 implements MigrationInterface {
 
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(
-      `CREATE TABLE "appointmentType" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "detail" character varying NOT NULL, CONSTRAINT "PK_160dcd4a616d24da928a512b95f" PRIMARY KEY ("id"))`
+      `CREATE TABLE "appointment_type" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "detail" character varying NOT NULL, CONSTRAINT "PK_160dcd4a616d24da928a512b95f" PRIMARY KEY ("id"))`
     );
     await queryRunner.query(
-      `INSERT INTO appointmentType (detail) VALUES ('ortopedia')`
+      `INSERT INTO appointment_type (detail) VALUES ('ortopedia')`
     );
     await queryRunner.query(
-      `INSERT INTO appointmentType (detail) VALUES ('neurologia')`
+      `INSERT INTO appointment_type (detail) VALUES ('neurologia')`
     );
     await queryRunner.query(
-      `INSERT INTO appointmentType (detail) VALUES ('cardiologia')`
+      `INSERT INTO appointment_type (detail) VALUES ('cardiologia')`
     );
     await queryRunner.query(
-      `INSERT INTO appointmentType (detail) VALUES ('pediatria')`
+      `INSERT INTO appointment_type (detail) VALUES ('pediatria')`
     );
     await queryRunner.query(
       `CREATE TABLE "patients" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "email" character varying NOT NULL, "full_name" character varying NOT NULL, "password" character varying NOT NULL, CONSTRAINT "UQ_64e2031265399f5690b0beba6a5" UNIQUE ("email"), CONSTRAINT "PK_a7f0b9fcbb3469d5ec0b0aceaa7" PRIMARY KEY ("id"))`
@@ -44,10 +44,10 @@ export class $npmConfigName1707602584738 implements MigrationInterface {
       `CREATE TABLE "staff" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "email" character varying NOT NULL, "full_name" character varying NOT NULL, "password" character varying NOT NULL, "rol" character varying NOT NULL, CONSTRAINT "UQ_902985a964245652d5e3a0f5f6a" UNIQUE ("email"), CONSTRAINT "PK_e4ee98bb552756c180aec1e854a" PRIMARY KEY ("id"))`
     );
     await queryRunner.query(
-      `INSERT INTO staff (email, full_name, password, role) VALUES ('staff-amaris@test.com', 'Esteban Dido', 'admin123', 'admin')`
+      `INSERT INTO staff (email, full_name, password, rol) VALUES ('staff-amaris@test.com', 'Esteban Dido', 'admin123', 'admin')`
     );
     await queryRunner.query(
-      `ALTER TABLE "appointments" ADD CONSTRAINT "FK_bd08b84824a9e041f87b986007f" FOREIGN KEY ("type_id") REFERENCES "appointmentType"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`
+      `ALTER TABLE "appointments" ADD CONSTRAINT "FK_bd08b84824a9e041f87b986007f" FOREIGN KEY ("type_id") REFERENCES "appointment_type"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`
     );
     await queryRunner.query(
       `ALTER TABLE "appointments" ADD CONSTRAINT "FK_3330f054416745deaa2cc130700" FOREIGN KEY ("patient_id") REFERENCES "patients"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`
@@ -71,6 +71,6 @@ export class $npmConfigName1707602584738 implements MigrationInterface {
     await queryRunner.query(`DROP TABLE "doctors"`);
     await queryRunner.query(`DROP TABLE "appointments"`);
     await queryRunner.query(`DROP TABLE "patients"`);
-    await queryRunner.query(`DROP TABLE "appointmentType"`);
+    await queryRunner.query(`DROP TABLE "appointment_type"`);
   }
 }
