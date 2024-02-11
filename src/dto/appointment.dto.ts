@@ -1,5 +1,4 @@
 import { IsDate, IsString } from "class-validator";
-import e from "express";
 
 export class createAppointmentBodyDto {
   @IsDate()

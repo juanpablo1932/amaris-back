@@ -8,15 +8,16 @@ import {
   deleteAppointment,
   getAppointmentByPatient,
 } from "../controllers/appointments";
+import { checkJwt } from "../middleware/session";
 
 const router = Router();
 
-router.get("/", getAppointments);
-router.get("/:id", getAppointment);
-router.get("/patient/:id", getAppointmentByPatient);
-router.post("/", createAppointment);
-router.put("/:id", updateAppointment);
-router.put("/admin/:id", updateAdminAppointment);
-router.delete("/:id", deleteAppointment);
+router.get("/", checkJwt, getAppointments);
+router.get("/:id", checkJwt, getAppointment);
+router.get("/patient/:id", checkJwt, getAppointmentByPatient);
+router.post("/", checkJwt, createAppointment);
+router.put("/:id", checkJwt, updateAppointment);
+router.put("/admin/:id", checkJwt, updateAdminAppointment);
+router.delete("/:id", checkJwt, deleteAppointment);
 
 export { router };

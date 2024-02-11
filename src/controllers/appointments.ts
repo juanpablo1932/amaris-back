@@ -6,8 +6,13 @@ import {
 } from "../dto/appointment.dto";
 import { AppointmentsService } from "../services/appointment.service";
 import messages from "../util/messages.json";
+import { JwtPayload } from "jsonwebtoken";
 
 const appointmentsService = new AppointmentsService();
+
+interface RequestExt extends Request {
+  user?: string | JwtPayload;
+}
 
 const getAppointment = async (req: Request, res: Response) => {
   try {
@@ -66,7 +71,7 @@ const updateAdminAppointment = async (req: Request, res: Response) => {
   }
 };
 
-const createAppointment = async (req: Request, res: Response) => {
+const createAppointment = async (req: RequestExt, res: Response) => {
   try {
     const appointmentData: createAppointmentBodyDto = {
       date: req.body.date,
@@ -76,7 +81,10 @@ const createAppointment = async (req: Request, res: Response) => {
     };
 
     await appointmentsService.createAppointment(appointmentData);
-    res.send({ mesage: messages.appointment.succes.created });
+    res.send({
+      mesage: messages.appointment.succes.created,
+      patient: req.user["email"],
+    });
   } catch (e) {
     handleHttp(res, e.message);
   }
