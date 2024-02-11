@@ -1,0 +1,15 @@
+{
+  "appointment": {
+    "succes": {
+      "created": "Appointment created successfully"
+    },
+    "error": {
+      "notFound": "Appointment not found",
+      "notCreated": "Appointment not created",
+      "notUpdated": "Appointment not updated",
+      "notDeleted": "Appointment not deleted",
+      "notAvailable": "Appointment not available",
+      "notAvailableTime": "Appointment not available at this time"
+    }
+  }
+}

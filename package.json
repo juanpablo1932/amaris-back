@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/juanpablo1932/amaris-back#readme",
   "dependencies": {
+    "class-validator": "^0.14.1",
     "cors": "^2.8.5",
     "dotenv": "^16.4.1",
     "express": "^4.18.2",

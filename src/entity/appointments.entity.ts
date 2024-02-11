@@ -32,8 +32,8 @@ export class Appointments {
   @JoinColumn({ name: "doctor_id" })
   doctor: Doctors;
 
-  @Column({ default: false })
-  is_deleted: boolean;
+  @Column()
+  deleted_at: Date;
 
   @CreateDateColumn()
   created_at: Date;
