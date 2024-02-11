@@ -1,4 +1,5 @@
 import { IsDate, IsString } from "class-validator";
+import e from "express";
 
 export class createAppointmentBodyDto {
   @IsDate()
@@ -12,4 +13,17 @@ export class createAppointmentBodyDto {
 
   @IsString()
   doctor_id: string;
+}
+
+export class updateAppointmentBodyDto {
+  @IsDate()
+  date: Date;
+
+  @IsString()
+  doctor_id: string;
+}
+
+export class updateAppointmentParamsDto extends updateAppointmentBodyDto {
+  @IsString()
+  id: string;
 }

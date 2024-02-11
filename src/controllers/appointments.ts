@@ -1,6 +1,9 @@
 import { Request, Response } from "express";
 import { handleHttp } from "../util/error.handler";
-import { createAppointmentBodyDto } from "../dto/appointment.dto";
+import {
+  createAppointmentBodyDto,
+  updateAppointmentParamsDto,
+} from "../dto/appointment.dto";
 import { AppointmentsService } from "../services/appointment.service";
 import messages from "../util/messages.json";
 
@@ -17,6 +20,8 @@ const getAppointment = async (req: Request, res: Response) => {
 
 const getAppointments = async (req: Request, res: Response) => {
   try {
+    const response = await appointmentsService.getAppointments();
+    res.send(response);
   } catch (e) {
     handleHttp(res, e.message);
   }
@@ -33,8 +38,29 @@ const getAppointmentByPatient = async (req: Request, res: Response) => {
   }
 };
 
-const updateAppointments = async (req: Request, res: Response) => {
+const updateAppointment = async (req: Request, res: Response) => {
   try {
+    const appointmentData: updateAppointmentParamsDto = {
+      date: req.body.date,
+      doctor_id: req.body.doctor_id,
+      id: req.params.id,
+    };
+    await appointmentsService.updateAppointment(appointmentData);
+    res.send({ mesage: messages.appointment.succes.updated });
+  } catch (e) {
+    handleHttp(res, e.message);
+  }
+};
+
+const updateAdminAppointment = async (req: Request, res: Response) => {
+  try {
+    const appointmentData: updateAppointmentParamsDto = {
+      date: req.body.date,
+      doctor_id: req.body.doctor_id,
+      id: req.params.id,
+    };
+    await appointmentsService.updateAdminAppointment(appointmentData);
+    res.send({ mesage: messages.appointment.succes.updated });
   } catch (e) {
     handleHttp(res, e.message);
   }
@@ -58,6 +84,8 @@ const createAppointment = async (req: Request, res: Response) => {
 
 const deleteAppointment = async (req: Request, res: Response) => {
   try {
+    await appointmentsService.deleteAppointment(req.params.id);
+    res.send({ mesage: messages.appointment.succes.deleted });
   } catch (e) {
     handleHttp(res, e.message);
   }
@@ -67,7 +95,8 @@ export {
   getAppointment,
   getAppointments,
   getAppointmentByPatient,
-  updateAppointments,
+  updateAppointment,
+  updateAdminAppointment,
   createAppointment,
   deleteAppointment,
 };
