@@ -9,7 +9,8 @@
       "notUpdated": "Appointment not updated",
       "notDeleted": "Appointment not deleted",
       "notAvailable": "Appointment not available",
-      "notAvailableTime": "Appointment not available at this time"
+      "notAvailableTime": "Appointment not available at this time",
+      "exists": "Doctor not available"
     }
   }
 }

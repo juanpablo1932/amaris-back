@@ -4,8 +4,12 @@ import { createAppointmentBodyDto } from "../dto/appointment.dto";
 import { AppointmentsService } from "../services/appointment.service";
 import messages from "../util/messages.json";
 
+const appointmentsService = new AppointmentsService();
+
 const getAppointment = async (req: Request, res: Response) => {
   try {
+    const response = await appointmentsService.getAppointment(req.params.id);
+    res.send(response);
   } catch (e) {
     handleHttp(res, e.message);
   }
@@ -13,6 +17,17 @@ const getAppointment = async (req: Request, res: Response) => {
 
 const getAppointments = async (req: Request, res: Response) => {
   try {
+  } catch (e) {
+    handleHttp(res, e.message);
+  }
+};
+
+const getAppointmentByPatient = async (req: Request, res: Response) => {
+  try {
+    const response = await appointmentsService.getAppointmentByPatient(
+      req.params.id
+    );
+    res.send(response);
   } catch (e) {
     handleHttp(res, e.message);
   }
@@ -33,9 +48,9 @@ const createAppointment = async (req: Request, res: Response) => {
       patient_id: req.body.patient_id,
       doctor_id: req.body.doctor_id,
     };
-    const appointmentsService = new AppointmentsService();
+
     await appointmentsService.createAppointment(appointmentData);
-    res.send(messages.appointment.succes.created);
+    res.send({ mesage: messages.appointment.succes.created });
   } catch (e) {
     handleHttp(res, e.message);
   }
@@ -51,6 +66,7 @@ const deleteAppointment = async (req: Request, res: Response) => {
 export {
   getAppointment,
   getAppointments,
+  getAppointmentByPatient,
   updateAppointments,
   createAppointment,
   deleteAppointment,
