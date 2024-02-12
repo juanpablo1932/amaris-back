@@ -2,7 +2,7 @@ import { authDto } from "../dto/auth.dto";
 import { Repository } from "typeorm";
 import { Patients } from "../entity/patients.entity";
 import { Staff } from "../entity/staff.entity";
-import { AppDataSource } from "../app";
+import AppDataSource from "../config/datasource";
 import { generateToken } from "../util/jwt.handle";
 
 const loginUser = async ({ email, password }: authDto) => {

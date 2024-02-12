@@ -1,4 +1,4 @@
-import { AppDataSource } from "../app";
+import AppDataSource from "../config/datasource";
 
 export async function pgQuery(sql: string, values?: any[]) {
   const manager = AppDataSource.manager;
