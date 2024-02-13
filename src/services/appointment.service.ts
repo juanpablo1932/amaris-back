@@ -111,6 +111,7 @@ export class AppointmentsService {
         JOIN patients p ON a.patient_id = p.id
         JOIN doctors d ON a.doctor_id = d.id
         WHERE a.patient_id = $1
+        AND a.deleted_at IS NULL
       `;
       const values = [patient_id];
       const res = await pgQuery(sql, values);
