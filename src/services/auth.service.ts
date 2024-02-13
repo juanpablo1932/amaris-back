@@ -1,18 +1,17 @@
 import { authDto } from "../dto/auth.dto";
-import { Repository } from "typeorm";
-import { Patients } from "../entity/patients.entity";
-import { Staff } from "../entity/staff.entity";
-import AppDataSource from "../config/datasource";
 import { generateToken } from "../util/jwt.handle";
+import { pgQuery } from "./postgresql.service";
 
 const loginUser = async ({ email, password }: authDto) => {
-  const patientRepo: Repository<Patients> =
-    AppDataSource.getRepository(Patients);
-  const patient = await patientRepo.findOne({ where: { email } });
+  const sql = `
+  SELECT * FROM patients WHERE email = $1 LIMIT 1;
+`;
+  const values = [email];
+  const patient = await pgQuery(sql, values);
   if (!patient) {
     throw new Error("User not found");
   }
-  if (patient.password !== password) {
+  if (patient[0].password !== password) {
     throw new Error("Invalid password");
   }
 
@@ -20,21 +19,24 @@ const loginUser = async ({ email, password }: authDto) => {
 
   return {
     token,
-    id: patient.id,
-    email: patient.email,
-    full_name: patient.full_name,
+    id: patient[0].id,
+    email: patient[0].email,
+    full_name: patient[0].full_name,
   };
 };
 const loginAdmin = async ({ email, password, rol }: authDto) => {
-  const staffRepo: Repository<Staff> = AppDataSource.getRepository(Staff);
-  const staff = await staffRepo.findOne({ where: { email } });
+  const sql = `
+  SELECT * FROM staff WHERE email = $1 LIMIT 1;
+`;
+  const values = [email];
+  const staff = await pgQuery(sql, values);
   if (!staff) {
     throw new Error("staff not found");
   }
-  if (staff.password !== password) {
+  if (staff[0].password !== password) {
     throw new Error("Invalid password");
   }
-  if (staff.rol !== rol) {
+  if (staff[0].rol !== rol) {
     throw new Error("You are not an admin");
   }
 
@@ -42,10 +44,10 @@ const loginAdmin = async ({ email, password, rol }: authDto) => {
 
   return {
     token,
-    id: staff.id,
-    email: staff.email,
-    full_name: staff.full_name,
-    rol: staff.rol,
+    id: staff[0].id,
+    email: staff[0].email,
+    full_name: staff[0].full_name,
+    rol: staff[0].rol,
   };
 };
 
