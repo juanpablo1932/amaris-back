@@ -18,10 +18,13 @@ const loginUser = async ({ email, password }: authDto) => {
   const token = generateToken(patient);
 
   return {
-    token,
-    id: patient[0].id,
-    email: patient[0].email,
-    full_name: patient[0].full_name,
+    statusCode: 200,
+    user: {
+      token,
+      id: patient[0].id,
+      email: patient[0].email,
+      full_name: patient[0].full_name,
+    },
   };
 };
 const loginAdmin = async ({ email, password, rol }: authDto) => {
@@ -43,11 +46,14 @@ const loginAdmin = async ({ email, password, rol }: authDto) => {
   const token = generateToken(staff);
 
   return {
-    token,
-    id: staff[0].id,
-    email: staff[0].email,
-    full_name: staff[0].full_name,
-    rol: staff[0].rol,
+    statusCode: 200,
+    user: {
+      token,
+      id: staff[0].id,
+      email: staff[0].email,
+      full_name: staff[0].full_name,
+      rol: staff[0].rol,
+    },
   };
 };
 
