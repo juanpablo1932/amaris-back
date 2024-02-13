@@ -12,6 +12,7 @@ export class AppointmentsService {
         SELECT COUNT(*) FROM appointments
         WHERE doctor_id = $1
         AND $2 BETWEEN (date - INTERVAL '14 MINUTE 59 SECOND') AND (date + INTERVAL '14 MINUTE 59 SECOND')
+        AND deleted_at IS NULL
       `;
       const values = [doctor_id, date];
       const res = await pgQuery(sql, values);
