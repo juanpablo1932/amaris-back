@@ -4,6 +4,6 @@ import { checkJwt } from "../middleware/session";
 
 const router = Router();
 
-router.get("/:detail", checkJwt, getTypeByDetail);
+router.get("/:detail?", checkJwt, getTypeByDetail);
 
 export { router };

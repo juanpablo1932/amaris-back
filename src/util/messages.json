@@ -14,5 +14,19 @@
       "notAvailableTime": "Appointment not available at this time",
       "exists": "Doctor not available"
     }
+  },
+  "doctor": {
+    "succes": {
+      "created": "Doctor created successfully",
+      "updated": "Doctor updated successfully",
+      "deleted": "Doctor deleted successfully"
+    },
+    "error": {
+      "notFound": "Doctor not found",
+      "notCreated": "Doctor not created",
+      "notUpdated": "Doctor not updated",
+      "notDeleted": "Doctor not deleted",
+      "exists": "Doctor already exists"
+    }
   }
 }

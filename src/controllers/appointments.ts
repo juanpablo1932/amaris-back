@@ -53,7 +53,7 @@ const updateAppointment = async (req: Request, res: Response) => {
     await appointmentsService.updateAppointment(appointmentData);
     res.send({ mesage: messages.appointment.succes.updated });
   } catch (e) {
-    handleHttp(res, e.message);
+    handleHttp(res, { message: e.message, status: 500 });
   }
 };
 
@@ -61,13 +61,13 @@ const updateAdminAppointment = async (req: Request, res: Response) => {
   try {
     const appointmentData: updateAppointmentParamsDto = {
       date: req.body.date,
-      doctor_id: req.body.doctor_id,
+      doctor: req.body.doctor,
       id: req.params.id,
     };
     await appointmentsService.updateAdminAppointment(appointmentData);
     res.send({ mesage: messages.appointment.succes.updated });
   } catch (e) {
-    handleHttp(res, e.message);
+    handleHttp(res, { message: e.message, status: 500 });
   }
 };
 

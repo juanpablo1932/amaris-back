@@ -4,6 +4,7 @@ import {
 } from "../dto/appointment.dto";
 import { pgQuery } from "./postgresql.service";
 import messages from "../util/messages.json";
+import { DoctorService } from "./doctor.service";
 
 export class AppointmentsService {
   async validateAvailability(date: Date, doctor_id: string) {
@@ -148,20 +149,27 @@ export class AppointmentsService {
   }
 
   async updateAdminAppointment(appointment: updateAppointmentParamsDto) {
+    const doctorService = new DoctorService();
     try {
       const validateAppointment = await this.getAppointment(appointment.id);
       if (validateAppointment.length === 0)
         throw new Error(messages.appointment.error.notFound);
 
+      const getDoctorByName = await doctorService.getDoctorByExactlyName(
+        appointment.doctor
+      );
+      if (getDoctorByName.length === 0)
+        throw new Error(messages.doctor.error.notFound);
+
       const validateDoctor = await this.validateAvailability(
         appointment.date,
-        appointment.doctor_id
+        getDoctorByName[0].id
       );
       if (parseInt(validateDoctor) > 0)
         throw new Error(messages.appointment.error.exists);
 
       const sql = `UPDATE appointments SET doctor_id = $1 WHERE id = $2`;
-      const values = [appointment.doctor_id, appointment.id];
+      const values = [getDoctorByName[0].id, appointment.id];
       const res = await pgQuery(sql, values);
       if (res.rowCount === 0)
         throw new Error(messages.appointment.error.notUpdated);

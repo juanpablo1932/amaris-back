@@ -19,7 +19,10 @@ export class updateAppointmentBodyDto {
   date: Date;
 
   @IsString()
-  doctor_id: string;
+  doctor_id?: string;
+
+  @IsString()
+  doctor?: string;
 }
 
 export class updateAppointmentParamsDto extends updateAppointmentBodyDto {

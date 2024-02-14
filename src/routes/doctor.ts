@@ -4,6 +4,6 @@ import { checkJwt } from "../middleware/session";
 
 const router = Router();
 
-router.get("/:name", checkJwt, getDoctorByName);
+router.get("/:name?", checkJwt, getDoctorByName);
 
 export { router };

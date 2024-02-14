@@ -3,13 +3,16 @@ import { pgQuery } from "./postgresql.service";
 export class TypeService {
   async getTypeByDetail(detail) {
     try {
-      const sql = `
+      let sql = `
         SELECT
           t.id,
           t.detail
         FROM appointment_type t
-        WHERE t.detail LIKE '%${detail}%'
+        WHERE 1 = 1
       `;
+      if (detail) {
+        sql += ` AND t.detail LIKE '%${detail}%'`;
+      }
       const res = await pgQuery(sql, []);
       return res;
     } catch (error) {
