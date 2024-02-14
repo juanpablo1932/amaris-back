@@ -96,3 +96,17 @@ $ npm run dev
   y **patients**, ambas tablas tienen 1 registro creado para poder llevar a cabo el proceso del login.
   Hay que aclarar que en estas tablas por practicidad y por no contar con un endpoint de registro las contraseñas no estan hasheadas, podría haberse resuelto con una dependencia como **bcrypt**, sin embargo, reiterando el tema de practicidad y por motivos de tiempo se ha dejado el password en la tabla sin hash.
 - Adjunto en el correo donde se envio el link de estos repositorios se podrá encontrar la colección de los servicios.
+- Debido a que no se alcanzo a crear en el front una vista para la creación de citas, se deberá realizar el proceso de creación por medio de Postman con el siguiente servicio:
+
+http://localhost:3002/appointments
+
+El body a usar puede ser este:
+
+{
+"date": "2024-02-19T16:30:00.000Z",
+"type_id": "poner acá el id de un registro de la tabla appointment_type",
+"patient_id": "poner acá el id de un registro de la tabla patients",
+"doctor_id": "poner acá el id de un registro de la tabla doctors"
+}
+
+Recordar que para realizar esta creación deberá hacer el proceso de Login para obtener el token.

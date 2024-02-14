@@ -1,6 +1,8 @@
 import { DataSource, DataSourceOptions } from "typeorm";
 import { PORT_DB, HOST_DB, USERNAME_DB, DB_PASSWORD } from "./env-variable";
 
+console.log(__dirname);
+
 const AppDataSource: DataSourceOptions = {
   type: "postgres",
   host: HOST_DB,
