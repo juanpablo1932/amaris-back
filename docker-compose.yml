@@ -8,10 +8,3 @@ services:
       POSTGRES_PASSWORD: ${DB_PASSWORD}
     ports:
       - ${PORT_DB}:5432
-  app:
-    image: amaris-back-db-1
-    restart: always
-    ports:
-      - 3002:3002
-    depends_on:
-      - db
